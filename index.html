@@ -64,6 +64,18 @@
   .name-jp{font-family:var(--jp);font-size:14px;text-align:center;color:var(--slate-blue)}
   .title{font-family:var(--kick);font-size:13.5px;text-align:center;color:var(--slate);margin-top:12px;line-height:1.45}
   .desc{font-family:var(--tag);font-size:12px;text-align:center;color:var(--muted);line-height:1.55;margin-top:4px}
+  .ti,.dg{display:none}
+  .ti-long,.dg-long{display:inline}
+  .title.t-long .ti-long{display:inline}
+  .title.t-long .ti-short{display:none}
+  .title.t-short .ti-short{display:inline}
+  .title.t-short .ti-long{display:none}
+  .desc.d-long .dg-long{display:inline}
+  .desc.d-long .dg-mid,.desc.d-long .dg-short{display:none}
+  .desc.d-mid .dg-mid{display:inline}
+  .desc.d-mid .dg-long,.desc.d-mid .dg-short{display:none}
+  .desc.d-short .dg-short{display:inline}
+  .desc.d-short .dg-long,.desc.d-short .dg-mid{display:none}
 
   .socials{display:flex;justify-content:center;gap:8px;margin:22px 0;flex-wrap:wrap}
   .soc{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;
@@ -84,7 +96,15 @@
   .lico svg{width:21px;height:21px;stroke:#fff;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
   .lico svg.brandw{fill:#fff;stroke:none;width:20px;height:20px}
   .ltext{flex:1;min-width:0}
-  .ltitle{font-family:var(--body);font-size:15px;font-weight:500;color:var(--slate)}
+  .v{display:none}
+  .v-long{display:block}
+  .link.lvl-long .v-long{display:block}
+  .link.lvl-long .v-medium,.link.lvl-long .v-short{display:none}
+  .link.lvl-medium .v-medium{display:block}
+  .link.lvl-medium .v-long,.link.lvl-medium .v-short{display:none}
+  .link.lvl-short .v-short{display:block}
+  .link.lvl-short .v-long,.link.lvl-short .v-medium{display:none}
+  .ltitle{font-family:var(--body);font-size:15px;font-weight:500;color:var(--slate);text-wrap:balance}
   .lsub{font-family:var(--body);font-size:12.5px;color:var(--muted);margin-top:1px}
   .chev{color:#AAB2BD;flex-shrink:0}
   .chev svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -100,6 +120,30 @@
     .soc{width:40px;height:40px}
     .name-en{font-size:24px}
     .title{font-size:12.5px}
+  }
+  @media (max-width:424px){
+    .v-long{display:none}
+    .v-medium{display:block}
+  }
+  @media (max-width:402px){
+    .v-medium{display:none}
+    .v-short{display:block}
+  }
+  @media (max-width:410px){
+    .dg-long{display:none}
+    .dg-mid{display:inline}
+  }
+  @media (max-width:372px){
+    .ti-long{display:none}
+    .ti-short{display:inline}
+  }
+  @media (max-width:344px){
+    .dg-mid{display:none}
+    .dg-short{display:inline}
+  }
+  @media (max-width:345px){
+    .chev{display:none}
+    .socials{max-width:150px;margin-left:auto;margin-right:auto}
   }
 </style>
 </head>
@@ -119,8 +163,8 @@
     <h1 class="name-en">Natt Niljianskul</h1>
     <p class="name-jp">ナット・ニルジアンスクール</p>
 
-    <p class="title">Fractional Chief Financial Officer / Chief Strategy Officer</p>
-    <p class="desc">Advisor to Start-ups, SMEs, Family Businesses<br>| C-Suite × People Leadership · Executive Coach |</p>
+    <p class="title"><span class="ti ti-long">Fractional Chief Financial Officer / Chief Strategy Officer</span><span class="ti ti-short">Fractional Chief Financial Officer /<br>Chief Strategy Officer</span></p>
+    <p class="desc"><span class="dg dg-long">Advisor to Start-ups, SMEs, Family Businesses<br>| C-Suite × People Leadership · Executive Coach |</span><span class="dg dg-mid">Advisor to Start-ups, SMEs, Family Businesses<br><i>C-Suite × People Leadership · Executive Coach</i></span><span class="dg dg-short">Advisor to Start-ups, SMEs, Family Businesses<br><i>C-Suite × People Leadership<br>· Executive Coach ·</i></span></p>
 
     <div class="socials">
       <a class="soc" href="https://line.me/ti/p/14NmkdBnw4" aria-label="LINE"><svg class="brand" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
@@ -134,33 +178,106 @@
         <div class="links">
       <a class="link" href="https://nattnet.github.io/natt.vcf">
         <span class="lico"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H4z"/><circle cx="10" cy="10.5" r="2.2"/><path d="M7 16c.4-1.7 1.6-2.6 3-2.6s2.6.9 3 2.6"/><path d="M17 8h3M17 12h3M17 16h3"/></svg></span>
-        <span class="ltext"><div class="ltitle">Add Natt to your contacts</div><div class="lsub">Save his card to your phone</div></span>
+        <span class="ltext"><span class="v v-long"><div class="ltitle">Add Natt to your contacts</div><div class="lsub">Save his vCard to your phonebook</div></span><span class="v v-medium"><div class="ltitle">Save Natt's contacts</div><div class="lsub">Add his vCard to your phonebook</div></span><span class="v v-short"><div class="ltitle">Save Natt's contacts</div><div class="lsub">Add to your phonebook</div></span></span>
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
       <a class="link" href="mailto:natt.niljianskul@outlook.com">
         <span class="lico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
-        <span class="ltext"><div class="ltitle">Get in touch with Natt via e-mail</div><div class="lsub">natt.niljianskul@outlook.com</div></span>
+        <span class="ltext"><span class="v v-long"><div class="ltitle">Get in touch with Natt via e‑mail</div><div class="lsub">natt.niljianskul@outlook.com</div></span><span class="v v-medium"><div class="ltitle">Send Natt an e‑mail</div><div class="lsub">natt.niljianskul@outlook.com</div></span><span class="v v-short"><div class="ltitle">E‑Mail Natt</div><div class="lsub">natt.niljianskul@outlook.com</div></span></span>
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
       <a class="link" href="https://www.linkedin.com/in/nattnet">
         <span class="lico"><svg class="brandw" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-        <span class="ltext"><div class="ltitle">Connect with Natt on LinkedIn</div><div class="lsub">linkedin.com/in/nattnet</div></span>
+        <span class="ltext"><span class="v v-long"><div class="ltitle">Connect with Natt on LinkedIn</div><div class="lsub">linkedin.com/in/nattnet</div></span><span class="v v-medium"><div class="ltitle">Connect with Natt on LinkedIn</div><div class="lsub">linkedin.com/in/nattnet</div></span><span class="v v-short"><div class="ltitle">Connect on LinkedIn</div><div class="lsub">linkedin.com/in/nattnet</div></span></span>
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
       <a class="link" href="https://nattnet.github.io/CV">
         <span class="lico"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15h6M9 18h4"/></svg></span>
-        <span class="ltext"><div class="ltitle">Natt's Interactive Web CV</div><div class="lsub">nattnet.github.io/CV</div></span>
+        <span class="ltext"><span class="v v-long"><div class="ltitle">Natt's Interactive Web CV</div><div class="lsub">nattnet.github.io/CV</div></span><span class="v v-medium"><div class="ltitle">Natt's Interactive Web CV</div><div class="lsub">nattnet.github.io/CV</div></span><span class="v v-short"><div class="ltitle">Natt's CV</div><div class="lsub">nattnet.github.io/CV</div></span></span>
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
       <a class="link" href="#hoothoot">
         <span class="lico"><svg viewBox="0 0 24 24"><path d="M5 9h11v4a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z"/><path d="M16 10h2a2.5 2.5 0 0 1 0 5h-2"/><path d="M8 4v2M11 3v3M14 4v2"/></svg></span>
-        <span class="ltext"><div class="ltitle">Hoot Hoot Coffee</div><div class="lsub">Specialty coffee · Nonthaburi</div></span>
+        <span class="ltext"><div class="ltitle">Hoot Hoot Coffee</div><div class="lsub">Specialty Coffee · Nonthaburi</div></span>
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
     </div>
 
-    <p class="foot">nattnet.github.io · one link, everything about Natt</p>
+    <p class="foot"><i>Natt's LinkHub</i> · Copyright © 2026 by Natt Niljianskul</p>
   </main>
 
+<script>
+(function(){
+  var links=document.querySelector('.links');
+  if(!links)return;
+  var cards=[].slice.call(links.querySelectorAll('.link'));
+  if(!cards.length)return;
+  var LEVELS=['long','medium','short'];
+  var MARGIN=12;
+  var probe=document.createElement('span');
+  probe.setAttribute('aria-hidden','true');
+  probe.style.cssText='position:absolute;left:-9999px;top:-9999px;visibility:hidden;white-space:nowrap;pointer-events:none';
+  document.body.appendChild(probe);
+  function titleFits(el,avail){
+    var cs=getComputedStyle(el);
+    probe.style.font=cs.font;
+    probe.style.fontFamily=cs.fontFamily;
+    probe.style.fontSize=cs.fontSize;
+    probe.style.fontWeight=cs.fontWeight;
+    probe.style.letterSpacing=cs.letterSpacing;
+    probe.textContent=el.textContent;
+    return probe.getBoundingClientRect().width<=avail;
+  }
+  function cardFits(card,level){
+    var box=card.querySelector('.ltext');
+    var span=card.querySelector('.v-'+level);
+    if(!box||!span)return true;
+    var avail=box.clientWidth-MARGIN;
+    var lines=span.querySelectorAll('.ltitle,.lsub');
+    for(var i=0;i<lines.length;i++){ if(!titleFits(lines[i],avail))return false; }
+    return true;
+  }
+  function textW(text,styleEl){
+    var cs=getComputedStyle(styleEl);
+    probe.style.font=cs.font;
+    probe.style.fontFamily=cs.fontFamily;
+    probe.style.fontSize=cs.fontSize;
+    probe.style.fontWeight=cs.fontWeight;
+    probe.style.letterSpacing=cs.letterSpacing;
+    probe.textContent=text;
+    return probe.getBoundingClientRect().width;
+  }
+  var title=document.querySelector('.title');
+  var desc=document.querySelector('.desc');
+  function applyHeader(){
+    if(title){
+      var tfit=textW('Fractional Chief Financial Officer / Chief Strategy Officer',title)<=title.clientWidth-4;
+      title.classList.toggle('t-long',tfit);
+      title.classList.toggle('t-short',!tfit);
+    }
+    if(desc){
+      var a=desc.clientWidth-8;
+      desc.classList.remove('d-long','d-mid','d-short');
+      if(textW('| C-Suite × People Leadership · Executive Coach |',desc)<=a) desc.classList.add('d-long');
+      else if(textW('C-Suite × People Leadership · Executive Coach',desc)*1.03<=a) desc.classList.add('d-mid');
+      else desc.classList.add('d-short');
+    }
+  }
+  function apply(){
+    for(var c=0;c<cards.length;c++){
+      var chosen='short';
+      for(var i=0;i<LEVELS.length;i++){ if(cardFits(cards[c],LEVELS[i])){chosen=LEVELS[i];break;} }
+      cards[c].classList.remove('lvl-long','lvl-medium','lvl-short');
+      cards[c].classList.add('lvl-'+chosen);
+    }
+    applyHeader();
+  }
+  var raf;
+  function onResize(){cancelAnimationFrame(raf);raf=requestAnimationFrame(apply);}
+  apply();
+  window.addEventListener('resize',onResize);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(apply);}
+})();
+</script>
 </body>
 </html>
