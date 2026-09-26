@@ -181,17 +181,33 @@
 .moreopt .d{letter-spacing:2px;font-weight:700}
 @media (max-width:760px){.moreopt{display:flex}}
 </style>
-<style>/* BUSINESS-CARD LIGHTBOX */
-.bc-lb{display:none;position:fixed;inset:0;z-index:60;background:rgba(16,22,32,.9);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:74px 16px 24px}
+<style>/* BUSINESS-CARD LIGHTBOX
+   Card width --cw is worked out from the height the visitor can actually see: 100dvh ("dynamic" height,
+   which on an iPhone leaves out the area behind Safari's toolbars), with 100vh as the fallback for older
+   browsers. The card is 1247 x 2041, so width = height x 0.611. The close button sits inside the card's
+   empty top-right strip (the outer ~21% of its width is clear down to ~70% of its height), sized and
+   placed as a share of the card width so it never reaches the printed name. It is a separate button laid
+   over the picture, so Save / Send still give the clean card. z-index keeps it and the action buttons above
+   the card (the card's drop-shadow filter would otherwise lift the card over them). */
+.bc-lb{--vh:100vh;--rsv:112px;display:none;position:fixed;inset:0;z-index:60;background:rgba(16,22,32,.9);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:24px 16px;overflow:auto}
+@supports (height:100dvh){.bc-lb{--vh:100dvh}}
 .bc-lb.open{display:flex}
-.bc-lb img{max-width:min(420px,calc(100vw - 48px));max-height:calc(100vh - 160px);width:auto;height:auto;display:block;filter:drop-shadow(0 18px 40px rgba(0,0,0,.45))}
-.bc-x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;background:#fff;border:0;display:flex;align-items:center;justify-content:center;color:var(--slate);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);padding:0}
-.bc-x svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
-.bc-acts{display:flex;gap:10px}
-.bc-btn{text-decoration:none;display:flex;align-items:center;gap:8px;background:#fff;border:0;border-radius:12px;padding:11px 16px;font-family:var(--body);font-size:14px;font-weight:500;color:var(--slate);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.bc-card{--cw:min(420px,calc(100vw - 48px),calc((var(--vh) - var(--rsv)) * .611));position:relative;width:var(--cw);flex:none}
+.bc-card img{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 40px rgba(0,0,0,.45))}
+.bc-x{--d:clamp(28px,calc(var(--cw) * .1),40px);position:absolute;z-index:2;top:calc(var(--cw) * .035);right:calc(var(--cw) * .035);width:var(--d);height:var(--d);border-radius:50%;background:var(--slate);border:0;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;padding:0}
+.bc-x::before{content:"";position:absolute;inset:-8px;border-radius:50%}
+.bc-x svg{width:44%;height:44%;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round}
+.bc-acts{position:relative;z-index:2;display:flex;gap:10px;flex:none}
+.bc-btn{text-decoration:none;display:flex;align-items:center;gap:8px;background:#fff;border:0;border-radius:12px;padding:11px 16px;font-family:var(--body);font-size:14px;font-weight:500;color:var(--slate);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);white-space:nowrap}
 .bc-btn[hidden]{display:none}
 .bc-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.bc-x:focus-visible,.bc-btn:focus-visible{outline:2px solid #9fe1cb;outline-offset:2px}
+.bc-x:focus-visible{outline:2px solid #9fe1cb;outline-offset:2px}
+.bc-btn:focus-visible{outline:2px solid #9fe1cb;outline-offset:2px}
+/* A phone turned sideways: too short for card-above-buttons, so the buttons stand beside the card. */
+@media (orientation:landscape) and (max-height:520px){
+ .bc-lb{flex-direction:row;--rsv:40px;padding:20px 16px}
+ .bc-acts{flex-direction:column}
+}
 </style>
 </head>
 <body>
@@ -228,7 +244,7 @@
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
       <a class="link" href="natt-business-card.png" id="bcopen">
-        <span class="lico"><svg viewBox="0 0 24 24"><path d="M5 3m0 3a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-8a3 3 0 0 1 -3 -3z"/><path d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M10 6h4"/><path d="M9 18h6"/></svg></span>
+        <span class="lico"><svg viewBox="0 0 24 24"><path d="M3.604 7.197l7.138 -3.109a.96 .96 0 0 1 1.27 .527l4.924 11.902a1 1 0 0 1 -.514 1.304l-7.137 3.109a.96 .96 0 0 1 -1.271 -.527l-4.924 -11.903a1 1 0 0 1 .514 -1.304z"/><path d="M15 4h1a1 1 0 0 1 1 1v3.5"/><path d="M20 6c.264 .112 .52 .217 .768 .315a1 1 0 0 1 .53 1.311l-2.298 5.374"/></svg></span>
         <span class="ltext"><span class="v v-long"><div class="ltitle">Get Natt's business card</div><div class="lsub">View and save the digital card</div></span><span class="v v-medium"><div class="ltitle">Natt's business card</div><div class="lsub">View and save the digital card</div></span><span class="v v-short"><div class="ltitle">Natt's business card</div><div class="lsub">View and save the card</div></span></span>
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
@@ -393,8 +409,10 @@
 })();
 </script>
 <div class="bc-lb" id="bclb" role="dialog" aria-modal="true" aria-label="Natt Niljianskul's business card" aria-hidden="true">
-  <button class="bc-x" id="bcx" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-  <img id="bcimg" alt="Natt Niljianskul's business card" width="1247" height="2041">
+  <div class="bc-card">
+    <img id="bcimg" alt="Natt Niljianskul's business card" width="1247" height="2041">
+    <button class="bc-x" id="bcx" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
   <div class="bc-acts">
     <a class="bc-btn" href="natt-business-card.png" download="Natt-Niljianskul-business-card.png"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Save card</a>
     <button class="bc-btn" id="bcsend" type="button" hidden><svg viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Send to&hellip;</button>
