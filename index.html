@@ -181,6 +181,18 @@
 .moreopt .d{letter-spacing:2px;font-weight:700}
 @media (max-width:760px){.moreopt{display:flex}}
 </style>
+<style>/* BUSINESS-CARD LIGHTBOX */
+.bc-lb{display:none;position:fixed;inset:0;z-index:60;background:rgba(16,22,32,.9);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:74px 16px 24px}
+.bc-lb.open{display:flex}
+.bc-lb img{max-width:min(420px,calc(100vw - 48px));max-height:calc(100vh - 160px);width:auto;height:auto;display:block;filter:drop-shadow(0 18px 40px rgba(0,0,0,.45))}
+.bc-x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;background:#fff;border:0;display:flex;align-items:center;justify-content:center;color:var(--slate);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);padding:0}
+.bc-x svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
+.bc-acts{display:flex;gap:10px}
+.bc-btn{text-decoration:none;display:flex;align-items:center;gap:8px;background:#fff;border:0;border-radius:12px;padding:11px 16px;font-family:var(--body);font-size:14px;font-weight:500;color:var(--slate);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.bc-btn[hidden]{display:none}
+.bc-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bc-x:focus-visible,.bc-btn:focus-visible{outline:2px solid #9fe1cb;outline-offset:2px}
+</style>
 </head>
 <body>
 
@@ -213,6 +225,11 @@
       <a class="link" href="https://nattnet.github.io/natt.vcf">
         <span class="lico"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H4z"/><circle cx="10" cy="10.5" r="2.2"/><path d="M7 16c.4-1.7 1.6-2.6 3-2.6s2.6.9 3 2.6"/><path d="M17 8h3M17 12h3M17 16h3"/></svg></span>
         <span class="ltext"><span class="v v-long"><div class="ltitle">Add Natt to your contacts</div><div class="lsub">Save his vCard to your phonebook</div></span><span class="v v-medium"><div class="ltitle">Save Natt's contacts</div><div class="lsub">Add his vCard to your phonebook</div></span><span class="v v-short"><div class="ltitle">Save Natt's contacts</div><div class="lsub">Add to your phonebook</div></span></span>
+        <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="link" href="natt-business-card.png" id="bcopen">
+        <span class="lico"><svg viewBox="0 0 24 24"><path d="M5 3m0 3a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-8a3 3 0 0 1 -3 -3z"/><path d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M10 6h4"/><path d="M9 18h6"/></svg></span>
+        <span class="ltext"><span class="v v-long"><div class="ltitle">Get Natt's business card</div><div class="lsub">View and save the digital card</div></span><span class="v v-medium"><div class="ltitle">Natt's business card</div><div class="lsub">View and save the digital card</div></span><span class="v v-short"><div class="ltitle">Natt's business card</div><div class="lsub">View and save the card</div></span></span>
         <span class="chev"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
       </a>
       <a class="link" href="mailto:natt.niljianskul@outlook.com">
@@ -373,6 +390,32 @@
  document.addEventListener('click',function(e){if(pop.classList.contains('open')&&!pop.contains(e.target)&&e.target!==btn&&!btn.contains(e.target))cl();});
  document.addEventListener('keydown',function(e){if(e.key==='Escape')cl();});
  if(bd)bd.addEventListener('click',cl);
+})();
+</script>
+<div class="bc-lb" id="bclb" role="dialog" aria-modal="true" aria-label="Natt Niljianskul's business card" aria-hidden="true">
+  <button class="bc-x" id="bcx" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <img id="bcimg" alt="Natt Niljianskul's business card" width="1247" height="2041">
+  <div class="bc-acts">
+    <a class="bc-btn" href="natt-business-card.png" download="Natt-Niljianskul-business-card.png"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Save card</a>
+    <button class="bc-btn" id="bcsend" type="button" hidden><svg viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Send to&hellip;</button>
+  </div>
+</div>
+<script>/* BUSINESS-CARD LIGHTBOX */
+(function(){
+ var lb=document.getElementById('bclb'),op=document.getElementById('bcopen'),x=document.getElementById('bcx'),img=document.getElementById('bcimg'),snd=document.getElementById('bcsend');
+ if(!lb||!op||!x||!img)return;
+ var src=op.getAttribute('href'),last=null,file=null,pending=null;
+ function loadFile(){ if(!pending){ pending=fetch(src).then(function(r){return r.blob();}).then(function(b){ file=new File([b],'Natt-Niljianskul-business-card.png',{type:'image/png'}); return file; }); } return pending; }
+ try{ if(snd&&navigator.canShare&&navigator.canShare({files:[new File([''],'card.png',{type:'image/png'})]}))snd.hidden=false; }catch(e){}
+ function open(e){ if(e)e.preventDefault(); last=document.activeElement; if(!img.getAttribute('src'))img.setAttribute('src',src);
+   lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.documentElement.style.overflow='hidden'; x.focus(); if(snd&&!snd.hidden)loadFile().catch(function(){}); }
+ function close(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; if(last&&last.focus)last.focus(); }
+ op.addEventListener('click',open);
+ x.addEventListener('click',close);
+ lb.addEventListener('click',function(e){ if(e.target===lb)close(); });
+ document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('open'))close(); });
+ if(snd)snd.addEventListener('click',function(){ var go=function(f){ return navigator.share({files:[f],title:"Natt Niljianskul's business card"}); };
+   (file?go(file):loadFile().then(go)).catch(function(){}); });
 })();
 </script>
 </body>
